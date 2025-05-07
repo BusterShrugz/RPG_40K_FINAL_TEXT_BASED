@@ -1,0 +1,3 @@
+C:/JetBrains/cPPJetBrains/RPG_40K_FINAL_RE/cmake-build-debug/CMakeFiles/RPG_40K_FINAL_RE.dir
+C:/JetBrains/cPPJetBrains/RPG_40K_FINAL_RE/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/JetBrains/cPPJetBrains/RPG_40K_FINAL_RE/cmake-build-debug/CMakeFiles/rebuild_cache.dir
