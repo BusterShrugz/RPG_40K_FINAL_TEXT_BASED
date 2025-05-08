@@ -1,6 +1,7 @@
 #include "SpaceMarine_RE.h"
 
 #include <iostream>
+#include "raylib.h"
 #include <vector>
 using namespace std;
 /* ***************************************************************
@@ -12,9 +13,9 @@ SpaceMarine::SpaceMarine( const string &name, const string &race, int health, co
    : Character( name, race, health, weapons, items, skills), marineHonor( marineHonor )
 { }
 
-void SpaceMarine::displayCharacter( ) const
+void SpaceMarine::displayCharacterInWindow( int x, int y ) const
 {
-    Character::displayCharacter( ); // Call base class method
+    Character::displayCharacterInWindow( x,  y ); // Call base class method
     std::cout << "Marine Honor: " << marineHonor << "\n"; // Display Space Marine-specific attribute
     cout << "=========================\n";
 }

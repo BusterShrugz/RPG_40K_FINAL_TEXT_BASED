@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "raylib.h"
 #include "ChaosKnight_RE.h"
 
 
@@ -13,11 +14,10 @@ ChaosKnight::ChaosKnight(const string &name, const string &race, int health, con
    : Character( name, race, health, weapons, items, skills), chaosPoints( chaosPoints )
 { }
 
-void ChaosKnight::displayCharacter( ) const
+void ChaosKnight::displayCharacterInWindow( int x, int y ) const
 {
-    Character::displayCharacter( ); // Call base class method
-    std::cout << "Chaos Points: " << chaosPoints << "\n"; // Display knight-specific attribute
-    cout << "=========================\n";
+    Character::displayCharacterInWindow( x, y ); // Call base class method
+    DrawText( TextFormat( "Chaos Points: %d", chaosPoints ), 100, 40, 20, RED );
 }
 
 //RE

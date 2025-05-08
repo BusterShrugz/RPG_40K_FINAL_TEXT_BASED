@@ -39,8 +39,9 @@ class Character {
       Character( const Character& other ); // Copy constructor
       Character& operator=( const Character& other ); // Overloaded assignment operator
       // Display character details
-      // Function to display character stats, weapons, items, and skills
-      void displayCharacter( ) const;
+      // // Function to display character stats, weapons, items, and skills
+      void displayCharacterInWindow( int x, int y ) const;
+
       virtual string getName( ) const; // Getter for name
       string getRace( ) const; // Getter for race
       int getHealth( ) const;  // Getter for health

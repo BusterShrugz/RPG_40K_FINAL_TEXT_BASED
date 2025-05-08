@@ -1,4 +1,6 @@
 #include "SkillSet_RE.h"
+
+#include "raylib.h"
 #include <iostream>
 
 
@@ -18,32 +20,29 @@ SkillSet::SkillSet( int combat, int tact, int psychic, int survive, int tech, in
   
 /******************************************************************************************
 * SkillSet::displaySkills( ):
-*     Displays the skills of the character.
-*     It prints out each skill with its value.
-*     This function is called by the Character class to display skills.
 *  -Description:
-*        Creates several characters with their respective skills.
+*       Displays the skill levels of a character to the console.
 *  -Input:
-*       None, as these characters are predefined.
+*       None
 *  -Output:
-*       Displays the skills of each character when their displayCharacter method is called.
-* *  -Returns:
-*       None, as this is part of the character initialization process.
+*       Text output listing each skill and its corresponding value.
+*  -Returns:
+*       Nothing (void function).
 ******************************************************************************************/
-void SkillSet::displaySkills( ) const
+void SkillSet::displaySkills(int x, int y, int lineSpacing ) const
 {
-	cout << "=========================\n";
-	cout << "Skills:\n";
-	cout << "Combat Proficiency: " << combatProficiency << "\n";
-	cout << "Tactical Mastery: " << tacticalMastery << "\n";
-	cout << "Psychic Potential: " << psychicPotential << "\n";
-	cout << "Survival Instinct: " << survivalInstinct << "\n";
-	cout << "Tech Mastery: " << techMastery << "\n";
-	cout << "Stealth Skill: " << stealthSkill << "\n";
-	cout << "Persuasion Intellect: " << persuasionInt << "\n";
-	cout << "Faith Zeal: " << faithZeal << "\n";
-	cout << "Medical Tech: " << medicalTech << "\n";
-	cout << "Pilot Skill: " << pilotSkill << "\n";
-	//cout << "=========================\n";
+	DrawText( "Skills:\n", 100,255, 20, BLUE );
+	y += lineSpacing;
+	
+   DrawText( TextFormat( "Combat Proficiency: %d", combatProficiency ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Tactical Mastery: %d", tacticalMastery ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Psychic Potential: %d", psychicPotential ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Survival Instinct: %d", survivalInstinct ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Tech Mastery: %d", techMastery ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Stealth Skill: %d", stealthSkill ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Persuasion Intellect: %d", persuasionInt ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Faith Zeal: %d", faithZeal ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Medical Tech: %d", medicalTech ), x, y, 18, LIGHTGRAY ); y += lineSpacing;
+   DrawText( TextFormat( "Pilot Skill: %d", pilotSkill ), x, y, 18, LIGHTGRAY );
 }
 /************************************************************************************/

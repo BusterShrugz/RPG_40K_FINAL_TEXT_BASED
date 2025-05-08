@@ -1,10 +1,14 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 #include <filesystem>
 #include <fstream>
 #include "SkillSet_RE.h"
 #include "Character_RE.h"
+#include "raylib.h"
+
+
 namespace fs = std::filesystem;
 using namespace std;
 /*********************************************************************
@@ -224,31 +228,64 @@ Character& Character::operator=( const Character& other )
 * Summary:
 * Displays character stats, weapons, items, and skills.
 **********************************************************************************/
-void Character::displayCharacter( ) const
+void Character::displayCharacterInWindow( int x, int y ) const
 {
-   cout << "=========================\n";
-   cout << "Character: " << name << "\n";
-   cout << "Race: " << race << "\n";
-   cout << "Starting Health: " << health << "\n";
-   cout << "Weapons: ";
-   for ( const auto& w : weapons ) cout << w << ", ";
-   cout << "\n";
 
-   cout << "Items: ";
-   for ( const auto& i : items ) cout << i << ", ";
-   cout << "\n";
+   int spacing = 30; // vertical space between lines
+   int fontSize = 20; // font size for text
+   Color fontColor = RAYWHITE; // font color 
 
-   // Display skills
+   DrawText( ( "Character: " + name ).c_str( ), x, y, fontSize, fontColor );
+   DrawText( ( "Race: " + race ).c_str( ), x, y + spacing, fontSize, fontColor );
+   DrawText( ( "Health: " + std::to_string( health ) ).c_str( ), x, y + 2 * spacing, fontSize, fontColor );
+
+   // Weapons
+   std::string weaponText = "Weapons: ";
+   for ( const auto& w : weapons ) weaponText += w + ", ";
+   DrawText( weaponText.c_str( ), x, y + 3 * spacing, fontSize, fontColor );
+
+   // Items
+   std::string itemText = "Items: ";
+   for ( const auto& i : items ) itemText += i + ", ";
+   DrawText( itemText.c_str( ), x, y + 4 * spacing, fontSize, fontColor );
+
+   // Skills (if SkillSet has a graphical display method)
    if ( skills )
    {
-      skills->displaySkills( );
+      skills->displaySkills( 100, 250, 30);
    }
    else
    {
-      cout << "No skills assigned.\n";
+      DrawText( "No skills assigned.", x, y + 5 * spacing, fontSize, fontColor );
    }
-   cout << "=========================\n";
 }
+
+//     THIS IS DISPLAY TO TERMINAL WINDOW
+//   // Display character details
+//   cout << "=========================\n";
+//   cout << "Character: " << name << "\n";
+//   cout << "Race: " << race << "\n";
+//   cout << "Starting Health: " << health << "\n";
+//
+//   cout << "Weapons: ";
+//   for ( const auto& w : weapons ) cout << w << ", ";
+//   cout << "\n";
+//
+//   cout << "Items: ";
+//   for ( const auto& i : items ) cout << i << ", ";
+//   cout << "\n";
+//
+//   // Display skills
+//   if ( skills )
+//   {
+//      skills->displaySkills( );
+//   }
+//   else
+//   {
+//      cout << "No skills assigned.\n";
+//   }
+//   cout << "=========================\n";
+//}
 /********************************************************************
 * Character::getName():
 *   Returns the name of the character.

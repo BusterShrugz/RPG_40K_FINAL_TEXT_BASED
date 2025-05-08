@@ -21,7 +21,7 @@ class ChaosKnight : public Character
                    SkillSet *skills, int chaosPoints);
 
 
-       void displayCharacter( ) const; // Override displayCharacter
+       void displayCharacterInWindow( int x, int y ) const; // Override displayCharacter
        int getChaosPoints( ) const { return chaosPoints; } // Getter for chaospoints
        int getHealth( ) const { return health; } // Getter for health
        string getname( ) const { return name; } // Getter for name

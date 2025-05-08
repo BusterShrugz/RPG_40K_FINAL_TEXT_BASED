@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include "raylib.h"
 #include "SpaceElf_RE.h"
 using namespace std;
 // SpaceElf class constructor
@@ -11,9 +12,9 @@ SpaceElf::SpaceElf( const string &name, const string &race, int health, const ve
     : Character( name, race, health, weapons, items, skills ), elfMagic( elfMagic )
 { }
 
-void SpaceElf::displayCharacter( ) const
+void SpaceElf::displayCharacterInWindow( int x, int y ) const
 {
-    Character::displayCharacter( ); // Call base class method
+    Character::displayCharacterInWindow(x,y ); // Call base class method
     std::cout << "Space Elf Wisdom: " << elfMagic << "\n"; // Display Eldar-specific attribute
     cout << "=========================\n";
 }

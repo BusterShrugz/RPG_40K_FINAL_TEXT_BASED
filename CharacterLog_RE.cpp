@@ -2,6 +2,7 @@
 #include "ChaosKnight_RE.h"
 #include "SpaceMarine_RE.h"
 #include "SpaceElf_RE.h"
+#include "raylib.h"
 /**********************************************************************************
 * initializeBuiltInCharacters():
 *     Initializes built-in characters with their respective skills and attributes.

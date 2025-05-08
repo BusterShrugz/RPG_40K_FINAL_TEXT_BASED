@@ -26,7 +26,7 @@ public:
    // SpaceElf( string name, string race, int health, vector<string> weapons, vector<string> items, SkillSet* skills, int elfMagic );
     SpaceElf(const string &name, const string &race, int health, const vector<string> &weapons, const vector<string> &items,
               SkillSet *skills, int elfMagic);
-    void displayCharacter( ) const; // Override displayCharacter
+    void displayCharacterInWindow( int x, int y )const; // Override displayCharacter
     int getElfMagic( ) const { return elfMagic; } // Getter for elfMagic
     int getHealth( ) const { return health; } // Getter for health
     string getName( ) const { return name; } // Getter for name

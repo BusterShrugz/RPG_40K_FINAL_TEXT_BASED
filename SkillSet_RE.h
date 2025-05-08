@@ -44,7 +44,7 @@ class SkillSet {
    SkillSet( );
    SkillSet( int combat, int tact, int psychic, int survive, int tech, int stealth, int persuade, int faith, int medi, int pilot );
 
-   void displaySkills( ) const;
+   void displaySkills( int x, int y, int lineSpacing ) const;
 
    //getter functions for each skill
    int getCombat( ) const { return combatProficiency; }

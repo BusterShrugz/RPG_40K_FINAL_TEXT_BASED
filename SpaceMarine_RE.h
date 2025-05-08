@@ -21,7 +21,7 @@ public:
     SpaceMarine( const string &name, const string &race, int health, const vector<string> &weapons, const vector<string> &items,
               SkillSet *skills,
               int marineHonor);
-    void displayCharacter( ) const; // Override displayCharacter
+    void displayCharacterInWindow( int x, int y ) const; // Override displayCharacter
     int getMarineHonor( ) const { return marineHonor; } // Getter for marineHonor
     int getHealth( ) const { return health; } // Getter for health
     string getName( ) const { return name; } // Getter for name
