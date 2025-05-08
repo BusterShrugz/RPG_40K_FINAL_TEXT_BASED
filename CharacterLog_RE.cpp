@@ -21,7 +21,6 @@
 *       character objects, which should be managed properly to avoid memory leaks.
 * ********************************************************************************/
 
-
 using namespace std;
 void initializeBuiltInCharacters( SpaceMarine*& marine, SpaceElf*& elf, ChaosKnight*& knight )
 {

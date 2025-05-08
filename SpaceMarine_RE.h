@@ -19,12 +19,13 @@ private:
 public:
   //  SpaceMarine( string name, string race, int health, vector<string> weapons, vector<string> items, SkillSet* skillSet, int marineHonor );
     SpaceMarine( const string &name, const string &race, int health, const vector<string> &weapons, const vector<string> &items,
-              SkillSet *skills,
-              int marineHonor);
+              SkillSet *skills, int marineHonor);
+
     void displayCharacterInWindow( int x, int y ) const; // Override displayCharacter
     int getMarineHonor( ) const { return marineHonor; } // Getter for marineHonor
     int getHealth( ) const { return health; } // Getter for health
     string getName( ) const { return name; } // Getter for name
+    
     // Function to apply marine honor as a damage buffer
     void applyMarineHonor( int& dmgAmount ) const
     {

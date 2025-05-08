@@ -75,7 +75,7 @@ using namespace std;
       bool screenInitialized = false;
 
       Texture2D background = LoadTexture( "thumb-1920-1304586.jpg" );
-      int running = 0;
+      
 
       while ( !WindowShouldClose( ) )
       {
@@ -126,13 +126,19 @@ using namespace std;
                      else if ( CheckCollisionPointRec( mousePos, knightBtn ) ) {currentScreen = VIEW_KNIGHT;}
                   }
                   break;
-              
-                  
+                  // Create character screen
+                  // If the user clicks on the create button, go to the create character screen
+                  // If the user clicks on the view button, go to the view character screen
+                  // If the user clicks on the list button, go to the list characters screen
+                  // If the user clicks on the marine button, go to the view marine screen
+                  // If the user clicks on the elf button, go to the view elf screen
+                  // If the user clicks on the knight button, go to the view knight screen
+                 
                      case CREATE_CHARACTER:
-                        if ( !screenInitialized ) {
+                        if ( !screenInitialized )
+                        {  
                            createCharacter( );
                            screenInitialized = true;
-                        
                         }
                         DrawText( "Creating character...", 250, 200, 20, GREEN );
                         DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
@@ -140,46 +146,50 @@ using namespace std;
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                         {
                            currentScreen = ScreenState::MAIN_MENU;
-                           screenInitialized = false;
+                           screenInitialized = false; // Reset the flag for the next time
                         }
                         break;
                      
-
                      case VIEW_CHARACTER:
-                        viewCharacter( );
+                        if ( !screenInitialized )
+                        {
+                           viewCharacter( );
+                           screenInitialized = true;
+                        }
                         DrawText( "Viewing saved character...", 250, 200, 20, GREEN );
                         DrawRectangleRec( viewBtn, CheckCollisionPointRec( mousePos, viewBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                         {
                            currentScreen = ScreenState::MAIN_MENU;
+                           screenInitialized = false; // Reset the flag for the next time
                         }
                         break;
 
                      case LIST_CHARACTERS:
-                        listSavedCharacters( );
+                        if ( !screenInitialized ) 
+                        { 
+                           listSavedCharacters( );
+                           screenInitialized = true;  
+                        }
                         DrawText( "Listing characters...", 250, 200, 20, GREEN );
                         DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                         {
-                           currentScreen = ScreenState::MAIN_MENU;
+                           currentScreen = ScreenState::MAIN_MENU; 
+                           screenInitialized = false; // Reset the flag for the next time
                         }
                         break;
 
                      case VIEW_MARINE:
-                        if ( !screenInitialized ) 
-                        {
-                           marine->displayCharacterInWindow( 100, 100 );
-                           screenInitialized = true;
-                        }
+                        marine->displayCharacterInWindow( 100, 100 );
                         DrawText( "Brother Malthus stats loaded.", 250, 75, 20, GREEN );
                         DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                         {
                            currentScreen = ScreenState::MAIN_MENU;
-                           screenInitialized = false;
                         }
                         break;
                      
@@ -195,7 +205,8 @@ using namespace std;
                         break;
                      
                      case VIEW_KNIGHT:
-                        knight->displayCharacterInWindow(100,100 );
+
+                        knight->displayCharacterInWindow( 100, 100 );
                         DrawText( "Lord Varkhos stats loaded.", 250, 75, 20, GREEN );   
                         DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
@@ -206,6 +217,7 @@ using namespace std;
                         break;
                      default:
                         break;
+                     
             }EndDrawing( );
       }
       CloseWindow( );

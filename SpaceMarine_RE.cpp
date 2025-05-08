@@ -15,9 +15,7 @@ SpaceMarine::SpaceMarine( const string &name, const string &race, int health, co
 
 void SpaceMarine::displayCharacterInWindow( int x, int y ) const
 {
-    Character::displayCharacterInWindow( x,  y ); // Call base class method
-    std::cout << "Marine Honor: " << marineHonor << "\n"; // Display Space Marine-specific attribute
-    cout << "=========================\n";
+   Character::displayCharacterInWindow( x, y ); // Call base class method
+   DrawText( TextFormat( "Marine Honor: %d", marineHonor ), 100, 40, 20, GRAY );
 }
-
 //RE

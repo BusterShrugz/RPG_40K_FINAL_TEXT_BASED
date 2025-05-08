@@ -14,9 +14,8 @@ SpaceElf::SpaceElf( const string &name, const string &race, int health, const ve
 
 void SpaceElf::displayCharacterInWindow( int x, int y ) const
 {
-    Character::displayCharacterInWindow(x,y ); // Call base class method
-    std::cout << "Space Elf Wisdom: " << elfMagic << "\n"; // Display Eldar-specific attribute
-    cout << "=========================\n";
+    Character::displayCharacterInWindow( x, y ); // Call base class method
+    DrawText( TextFormat( "Elf Magic: %d", elfMagic ), 100, 40, 20, BLUE );
 }
 
 //RE 
