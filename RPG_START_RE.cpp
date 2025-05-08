@@ -11,6 +11,8 @@
 
 using namespace std;
 
+typedef enum
+
    enum ScreenState {
       MAIN_MENU,
       CREATE_CHARACTER,
@@ -20,7 +22,7 @@ using namespace std;
       VIEW_ELF,
       VIEW_KNIGHT
    };
-   ScreenState currentScreen = MAIN_MENU;
+   ScreenState currentScreen = ScreenState::MAIN_MENU;
 
    
 
@@ -74,65 +76,60 @@ using namespace std;
       const char message[ 128 ] = "Welcome to the Grim Dark Future\nSelect an option.";
       int framesCounter = 0;
 
-
       Texture2D background = LoadTexture( "thumb-1920-1304586.jpg" );
       int running = 0;
-      while ( WindowShouldClose( ) == false )
+      while ( !WindowShouldClose( ) )
       {
-         while ( running == 0 )
-         {
             Vector2 mousePos = GetMousePosition( );
             BeginDrawing( );
             ClearBackground( BLACK );
-
             DrawTexture( background, 0, 0, WHITE );
-
             DrawText( TextSubtext( message, 0, framesCounter / 10 ), 210, 160, 20, MAROON );
-
 
             switch ( currentScreen )
             {
                case MAIN_MENU:
-                  DrawText( "Main Menu", 350, 50, 20, WHITE );
+                  DrawText( "Character Creation Menu", 280, 50, 20, DARKPURPLE );
 
+                  //creating button for character creation
                   DrawRectangleRec( createBtn, CheckCollisionPointRec( mousePos, createBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "Create Character", createBtn.x + 10, createBtn.y + 5, 20, WHITE );
-
+                  DrawText( "Create Character", createBtn.x + 10, createBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for created character visual
                   DrawRectangleRec( viewBtn, CheckCollisionPointRec( mousePos, viewBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "View Created Character", viewBtn.x + 10, viewBtn.y + 5, 20, WHITE );
-
+                  DrawText( "View Created Character", viewBtn.x + 10, viewBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for listing characters created
                   DrawRectangleRec( listBtn, CheckCollisionPointRec( mousePos, listBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "List of Existing Characters", listBtn.x + 10, listBtn.y + 5, 20, WHITE );
-
+                  DrawText( "List of Existing Characters", listBtn.x + 10, listBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for marine visual
                   DrawRectangleRec( marineBtn, CheckCollisionPointRec( mousePos, marineBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "View Brother Malthus", marineBtn.x + 10, marineBtn.y + 5, 20, WHITE );
-
+                  DrawText( "View Brother Malthus", marineBtn.x + 10, marineBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for eldar visual
                   DrawRectangleRec( elfBtn, CheckCollisionPointRec( mousePos, elfBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "View Farseer Elarique", elfBtn.x + 10, elfBtn.y + 5, 20, WHITE );
-
+                  DrawText( "View Farseer Elarique", elfBtn.x + 10, elfBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for knight visual
                   DrawRectangleRec( knightBtn, CheckCollisionPointRec( mousePos, knightBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "View Lord Varkhos", knightBtn.x + 10, knightBtn.y + 5, 20, WHITE );
-
+                  DrawText( "View Lord Varkhos", knightBtn.x + 10, knightBtn.y + 5, 20, DARKPURPLE );
+                  //creating button for main menu return creation
                   DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "Back to Main Menu", backBtn.x + 10, backBtn.y + 5, 20, DARKPURPLE );
-                  if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
-                  {
-                     if ( CheckCollisionPointRec( mousePos, createBtn ) ) currentScreen = CREATE_CHARACTER;
 
-                     else if ( CheckCollisionPointRec( mousePos, viewBtn ) )currentScreen = VIEW_CHARACTER;
+                  if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) ) {
+                     if ( CheckCollisionPointRec( mousePos, createBtn ) ){ currentScreen = CREATE_CHARACTER;}
 
-                     else if ( CheckCollisionPointRec( mousePos, listBtn ) ) currentScreen = LIST_CHARACTERS;
+                     else if ( CheckCollisionPointRec( mousePos, viewBtn ) ){currentScreen = VIEW_CHARACTER;}
 
-                     else if ( CheckCollisionPointRec( mousePos, marineBtn ) ) currentScreen = VIEW_MARINE;
+                     else if ( CheckCollisionPointRec( mousePos, listBtn ) ){ currentScreen = LIST_CHARACTERS;}
 
-                     else if ( CheckCollisionPointRec( mousePos, elfBtn ) )currentScreen = VIEW_ELF;
+                     else if ( CheckCollisionPointRec( mousePos, marineBtn ) ) {currentScreen = VIEW_MARINE;}
 
-                     else if ( CheckCollisionPointRec( mousePos, knightBtn ) ) currentScreen = VIEW_KNIGHT;
+                     else if ( CheckCollisionPointRec( mousePos, elfBtn ) ){currentScreen = VIEW_ELF;}
+
+                     else if ( CheckCollisionPointRec( mousePos, knightBtn ) ) {currentScreen = VIEW_KNIGHT;}
                   }
                   break;
 
-
-               case CREATE_CHARACTER:
+              case CREATE_CHARACTER:
+               {
                   ClearBackground( DARKGRAY );
                   createCharacter( );
                   DrawText( "Creating character...", 250, 200, 20, GREEN );
@@ -140,10 +137,10 @@ using namespace std;
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = MAIN_MENU;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
+               }
 
                case VIEW_CHARACTER:
                   viewCharacter( );
@@ -152,9 +149,8 @@ using namespace std;
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = MAIN_MENU;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
 
                case LIST_CHARACTERS:
@@ -164,52 +160,51 @@ using namespace std;
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = MAIN_MENU;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
 
                case VIEW_MARINE:
-
+                  {
                   marine->displayCharacter( );
                   DrawText( "Brother Malthus stats loaded.", 250, 200, 20, GREEN );
                   DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = MAIN_MENU;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
+                  }
 
                case VIEW_ELF:
+                  {
                   elf->displayCharacter( );
                   DrawText( "Farseer Elarique stats loaded.", 250, 200, 20, GREEN );
                   DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = MAIN_MENU;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
+                  }
 
-               case VIEW_KNIGHT:
+               case VIEW_KNIGHT: {
                   knight->displayCharacter( );
                   DrawText( "Lord Varkhos stats loaded.", 250, 200, 20, GREEN );
                   DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                   DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                   if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                   {
-                     currentScreen = VIEW_KNIGHT;
+                     currentScreen = ScreenState::MAIN_MENU;
                   }
-                  running = 1;
                   break;
-            }EndDrawing( ); 
-         }
-
-         
-      }CloseWindow( );
+               }
+            }EndDrawing( );
+      }
+      CloseWindow( );
+      return 0;
    }
    //OLD CODE OF MAIN MENU VIA TERMINAL
    //   // Initialize built-in characters
