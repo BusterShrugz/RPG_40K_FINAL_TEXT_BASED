@@ -1,6 +1,4 @@
 #include "SpaceMarine_RE.h"
-
-#include <iostream>
 #include "raylib.h"
 #include <vector>
 using namespace std;

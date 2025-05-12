@@ -1,14 +1,14 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <iostream>
 #include "SkillSet_RE.h"
+
 
 using namespace std;
 // Function prototypes
 void createCharacter( );
-void viewCharacter( );
-void listSavedCharacters( );    // Function to list saved characters
+void viewCharacterInWindow( const string& name, int x, int y );
+void listSavedCharactersInWindow(int x,int y);    // Function to list saved characters
 /***********************************************************************************
 *  Reese Edens
 * Class: Character

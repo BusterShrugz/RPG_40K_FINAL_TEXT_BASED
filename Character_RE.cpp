@@ -10,6 +10,12 @@
 
 
 namespace fs = std::filesystem;
+
+struct CharacterEntry {
+   std::string filename;
+   Rectangle bounds;
+};
+
 using namespace std;
 /*********************************************************************
 * Reese Edens
@@ -23,7 +29,7 @@ using namespace std;
 *********************************************************************/
 void createCharacter( )
 {  
-   cout << "Enter character name, Press enter to create character.): ";
+   cout << "Enter character name, Press enter to create character: ";
    string name;
    cin.ignore( );
    // Clear newline from previous input
@@ -61,16 +67,17 @@ void createCharacter( )
    vector<string> raceList;
    string race;
    cin.ignore( );
-   while ( race.empty() )
+   while ( race.empty( ) )
    {
-      getline( cin, race);
+      getline( cin, race );
       if ( race.empty( ) );
       raceList.push_back( race );
-   }
-   if ( raceList.empty( ) )
-   {
-      cout << "No race entered. Defaulting to 'None'." << endl;
-      raceList.push_back( "None" );
+
+      if ( raceList.empty( ) )
+      {
+         cout << "No race entered. Defaulting to 'None'." << endl;
+         raceList.push_back( "None" );
+      }
    }
 
    cout << "Enter weapons (type one per line, press Enter on empty line to finish): ";
@@ -260,32 +267,6 @@ void Character::displayCharacterInWindow( int x, int y ) const
    }
 }
 
-//     THIS IS DISPLAY TO TERMINAL WINDOW
-//   // Display character details
-//   cout << "=========================\n";
-//   cout << "Character: " << name << "\n";
-//   cout << "Race: " << race << "\n";
-//   cout << "Starting Health: " << health << "\n";
-//
-//   cout << "Weapons: ";
-//   for ( const auto& w : weapons ) cout << w << ", ";
-//   cout << "\n";
-//
-//   cout << "Items: ";
-//   for ( const auto& i : items ) cout << i << ", ";
-//   cout << "\n";
-//
-//   // Display skills
-//   if ( skills )
-//   {
-//      skills->displaySkills( );
-//   }
-//   else
-//   {
-//      cout << "No skills assigned.\n";
-//   }
-//   cout << "=========================\n";
-//}
 /********************************************************************
 * Character::getName():
 *   Returns the name of the character.
@@ -322,57 +303,99 @@ ostream& operator<<( ostream& os, const Character& character )
 *   If the file does not exist, it shows an error message.
 *********************************************************************/
 // Function to view a character's details from a file
-void viewCharacter( )
+void viewCharacterInWindow(const string& name, int x, int y )
 {
-   string name;
-   cout << "Enter character name (use underscores instead of spaces): ";
-   cin >> name;
    string filename = name + ".txt";
    ifstream file( filename );
 
    if ( !file )
    {
-      cout << "Error: Character file not found!" << endl;
+      DrawText( "Error: Character file not found!", x, y, 20, RED );
       return;
    }
 
+   vector<string> lines;
    string line;
    while ( getline( file, line ) )
    {
-      cout << line << endl;
+      lines.push_back( line );
    }
+   file.close( );
+
    //if no name is entered, prompt again
    if ( line.empty( ) )
    {
-      cout << "Error: Character file is empty!" << endl;
+      DrawText( "Error: Character file is empty!", x, y, 20, RED );
       return;
    }
 
-   file.close( );
+   // Display character details
+   for ( size_t i = 0; i < lines.size( ); ++i )
+   {
+      DrawText( lines[ i ].c_str( ), x, y + 25 * static_cast< int >( i ), 20, LIGHTGRAY );
+   } 
 }
 
-void listSavedCharacters( )
+void listSavedCharactersInWindow( int x, int y)
 {
-   cout << "===== Saved Characters =====\n";
+   DrawText( "Saved Characters", x, y, 30, ORANGE );
+
    int count = 0;
+   int offsetY = 40; // vertical spacing below the title
 
    for ( const auto& entry : fs::directory_iterator( "." ) )
    {
       if ( entry.is_regular_file( ) && entry.path( ).extension( ) == ".txt" )
       {
-         cout << "- " << entry.path( ).filename( ).string( ) << endl;
+         std::string filename = entry.path( ).filename( ).string( );
+         std::string displayText = "- " + filename;
+         int textWidth = MeasureText( displayText.c_str( ), 20 );
+         int posY = y + offsetY + count * 30;
+
+         // Draw text
+         DrawText( displayText.c_str( ), x, posY, 20, LIGHTGRAY );
+
+     
+
          ++count;
       }
    }
+
    if ( count == 0 )
    {
-      cout << "No saved characters found.\n";
+      DrawText( "No saved characters found.", x, y + offsetY, 20, RED );
    }
-   else
-   {
-      cout << "Total characters found: " << count << endl;
-   }
-   cout << "===========================\n";
 }
 
 //RE
+
+
+
+
+
+//     THIS IS DISPLAY TO TERMINAL WINDOW
+//   // Display character details
+//   cout << "=========================\n";
+//   cout << "Character: " << name << "\n";
+//   cout << "Race: " << race << "\n";
+//   cout << "Starting Health: " << health << "\n";
+//
+//   cout << "Weapons: ";
+//   for ( const auto& w : weapons ) cout << w << ", ";
+//   cout << "\n";
+//
+//   cout << "Items: ";
+//   for ( const auto& i : items ) cout << i << ", ";
+//   cout << "\n";
+//
+//   // Display skills
+//   if ( skills )
+//   {
+//      skills->displaySkills( );
+//   }
+//   else
+//   {
+//      cout << "No skills assigned.\n";
+//   }
+//   cout << "=========================\n";
+//}

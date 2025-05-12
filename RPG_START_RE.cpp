@@ -1,15 +1,10 @@
 
-#include <iostream>
-
 #include "Character_RE.h"
-#include "SkillSet_RE.h"
-
 #include "CharacterLog_RE.h"
 #include "raylib.h"
 
 using namespace std;
 
-   // Fix for E0110 and E0040 errors by properly defining the enum and removing unnecessary typedef
    enum ScreenState {
       MAIN_MENU,
       CREATE_CHARACTER,
@@ -85,30 +80,29 @@ using namespace std;
             DrawTexture( background, 0, 0, WHITE );
             DrawText( TextSubtext( message, 0, framesCounter / 10 ), 210, 160, 20, MAROON );
 
-            switch ( currentScreen )
+           switch ( currentScreen )
             {
                case MAIN_MENU:
-                  DrawText( "Character Creation Menu", 280, 50, 20, DARKPURPLE );
-
-                  //creating button for character creation
+                  DrawText( "Character Creation Menu", 200, 70, 20, RAYWHITE );
+                      //creating button for character creation
                   DrawRectangleRec( createBtn, CheckCollisionPointRec( mousePos, createBtn ) ? DARKGRAY : LIGHTGRAY );
-                  DrawText( "Create Character", createBtn.x + 10, createBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for created character visual
+                  DrawText( "Create Character", createBtn.x+ 10, createBtn.y + 5, 20, DARKPURPLE );
+                      //creating button for created character visual
                   DrawRectangleRec( viewBtn, CheckCollisionPointRec( mousePos, viewBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "View Created Character", viewBtn.x + 10, viewBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for listing characters created
+                      //creating button for listing characters created
                   DrawRectangleRec( listBtn, CheckCollisionPointRec( mousePos, listBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "List of Existing Characters", listBtn.x + 10, listBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for marine visual
+                      //creating button for marine visual
                   DrawRectangleRec( marineBtn, CheckCollisionPointRec( mousePos, marineBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "View Brother Malthus", marineBtn.x + 10, marineBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for eldar visual
+                      //creating button for eldar visual
                   DrawRectangleRec( elfBtn, CheckCollisionPointRec( mousePos, elfBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "View Farseer Elarique", elfBtn.x + 10, elfBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for knight visual
+                      //creating button for knight visual
                   DrawRectangleRec( knightBtn, CheckCollisionPointRec( mousePos, knightBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "View Lord Varkhos", knightBtn.x + 10, knightBtn.y + 5, 20, DARKPURPLE );
-                  //creating button for main menu return creation
+                      //creating button for main menu return creation
                   /*DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : LIGHTGRAY );
                   DrawText( "Back to Main Menu", backBtn.x + 10, backBtn.y + 5, 20, DARKPURPLE );*/
 
@@ -126,14 +120,15 @@ using namespace std;
                      else if ( CheckCollisionPointRec( mousePos, knightBtn ) ) {currentScreen = VIEW_KNIGHT;}
                   }
                   break;
-                  // Create character screen
-                  // If the user clicks on the create button, go to the create character screen
-                  // If the user clicks on the view button, go to the view character screen
-                  // If the user clicks on the list button, go to the list characters screen
-                  // If the user clicks on the marine button, go to the view marine screen
-                  // If the user clicks on the elf button, go to the view elf screen
-                  // If the user clicks on the knight button, go to the view knight screen
-                 
+                  /*******************************************************************************
+                  * Create character screen
+                  * If the user clicks on the create button, go to the create character screen
+                  * If the user clicks on the view button, go to the view character screen
+                  * If the user clicks on the list button, go to the list characters screen
+                  * If the user clicks on the marine button, go to the view marine screen
+                  * If the user clicks on the elf button, go to the view elf screen
+                  * If the user clicks on the knight button, go to the view knight screen
+                  ********************************************************************************/
                      case CREATE_CHARACTER:
                         if ( !screenInitialized )
                         {  
@@ -151,12 +146,15 @@ using namespace std;
                         break;
                      
                      case VIEW_CHARACTER:
+
+                        // Update the function call to use the defined variable  
+                        viewCharacterInWindow( " TEST 1", 100, 100 );
                         if ( !screenInitialized )
                         {
-                           viewCharacter( );
+                           viewCharacterInWindow( " TEST 2", 100, 100 );
                            screenInitialized = true;
                         }
-                        DrawText( "Viewing saved character...", 250, 200, 20, GREEN );
+                        DrawText( "Viewing saved character...", 100, 75, 20, GREEN );
                         DrawRectangleRec( viewBtn, CheckCollisionPointRec( mousePos, viewBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
@@ -167,18 +165,19 @@ using namespace std;
                         break;
 
                      case LIST_CHARACTERS:
-                        if ( !screenInitialized ) 
-                        { 
-                           listSavedCharacters( );
-                           screenInitialized = true;  
+                        if ( !screenInitialized )
+                        {
+                           
+                           listSavedCharactersInWindow( 100, 100);
+                           screenInitialized = true;
                         }
-                        DrawText( "Listing characters...", 250, 200, 20, GREEN );
+                        listSavedCharactersInWindow(100,100);
+                        DrawText( "Listing characters...", 100, 75, 20, GREEN );
                         DrawRectangleRec( backBtn, CheckCollisionPointRec( mousePos, backBtn ) ? DARKGRAY : GRAY );
                         DrawText( "Back", backBtn.x + 10, backBtn.y + 5, 20, WHITE );
                         if ( IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && CheckCollisionPointRec( mousePos, backBtn ) )
                         {
                            currentScreen = ScreenState::MAIN_MENU; 
-                           screenInitialized = false; // Reset the flag for the next time
                         }
                         break;
 
